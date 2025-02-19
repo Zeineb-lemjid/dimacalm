@@ -13,7 +13,7 @@ class MentalHealthApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Mental Health App',
+      title: 'Mental Health App 1',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
