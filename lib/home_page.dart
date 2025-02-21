@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'screens/home_screen.dart';
 import 'screens/activities_screen.dart';
 import 'screens/profile_screen.dart';
-import 'controllers/navigation_controller.dart';
 import 'screens/mood_screen.dart';
+import 'controllers/navigation_controller.dart';
+import 'controllers/home_controller.dart';
 
 class HomePage extends StatelessWidget {
   final NavigationController navController = Get.put(NavigationController());
@@ -13,11 +14,11 @@ class HomePage extends StatelessWidget {
   final List<Widget> _pages = [
     const HomeScreen(),
     const ActivitiesScreen(),
-    ProfileScreen(),
-    MoodScreen(),
+    const ProfileScreen(),
+    MoodScreen(), // Added MoodScreen from dev branch
   ];
 
-   HomePage({super.key});
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,45 +32,46 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // You can navigate to a Settings page here
-              // For now, it will just print a message
+              // Handle settings tap
               print("Settings tapped");
             },
           ),
         ],
       ),
       body: Obx(() => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: _pages[navController.selectedIndex.value],
-          )),
+        duration: const Duration(milliseconds: 300),
+        child: _pages[navController.selectedIndex.value], // Use NavigationController for page switching
+      )),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
-            currentIndex: navController.selectedIndex.value,
-            onTap: navController.changeIndex,
-            selectedItemColor: Colors.blue, // Change to active color
-            unselectedItemColor: Colors.grey, // Change to inactive color
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-                backgroundColor: Colors.blue,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Activities',
-                backgroundColor: Colors.green,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-                backgroundColor: Colors.red,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.mood),
-                label: 'Mood',
-                backgroundColor: Colors.yellow,
-              ),
-            ],
-          )),
+        currentIndex: navController.selectedIndex.value, // Use selectedIndex from NavigationController
+        onTap: navController.changeIndex,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Activities',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mood),
+            label: 'Mood',
+            backgroundColor: Colors.yellow,
+          ),
+        ],
+      )),
     );
   }
 }

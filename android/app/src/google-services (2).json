@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1021222710527",
+    "project_id": "dimacalm-aee78",
+    "storage_bucket": "dimacalm-aee78.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021222710527:android:7e13cfc0b59c60f409b0ca",
+        "android_client_info": {
+          "package_name": "com.example.dimacalm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021222710527-5bipbhsac9hg4unfsp9910mqi23arq6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs3gAJoYMvOzXFpmgze7ymTwZa4da4pAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021222710527-5bipbhsac9hg4unfsp9910mqi23arq6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
