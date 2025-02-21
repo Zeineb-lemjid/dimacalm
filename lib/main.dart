@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'home_page.dart';
 
-void main() {
-  runApp(const MentalHealthApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MentalHealthApp());
 }
 
 class MentalHealthApp extends StatelessWidget {
-  const MentalHealthApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Mental Health App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
