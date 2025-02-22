@@ -3,9 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';  
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'controllers/auth_controller.dart'; // Updated import path
 import 'screens/splash_screen.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,18 +14,23 @@ void main() async {
   await Hive.openBox('userBox'); // Box for storing user profile data
   await GetStorage.init();  // Initialize GetStorage
 
-  runApp(const MentalHealthApp());
+  // Initialize the AuthController
+  Get.put(AuthController());
 
+  runApp(const MentalHealthApp());
 }
 
 class MentalHealthApp extends StatelessWidget {
+  const MentalHealthApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Load saved theme preference
     bool isDarkMode = GetStorage().read('isDarkMode') ?? false;
     
     return GetMaterialApp(
-      title: 'Mental Health App',
+      debugShowCheckedModeBanner: false,
+      title: 'DimaCalm',
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light, // Toggle based on saved preference
       theme: _buildLightTheme(),
       darkTheme: _buildDarkTheme(),

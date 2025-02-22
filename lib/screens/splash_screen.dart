@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'home_screen.dart';  // Import HomeScreen instead of HomePage
 import 'login_screen.dart';
-import 'home_screen.dart';
+import '../controllers/auth_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,6 +12,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final AuthController authController = Get.find<AuthController>(); // Use AuthController to check login status
+
   @override
   void initState() {
     super.initState();
@@ -21,12 +23,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _checkLoginStatus() async {
     await Future.delayed(const Duration(seconds: 3)); // Simulate loading time
 
-    final userBox = Hive.box('userBox');
-    final bool isLoggedIn = userBox.containsKey('email');
-
-    if (isLoggedIn) {
-      Get.offAll(() => const HomeScreen());
+    // Check if user is logged in using the AuthController
+    if (authController.user.value != null) {
+      // If logged in, navigate to HomePage
+      Get.offAll(() => HomePage());
     } else {
+      // If not logged in, navigate to LoginScreen
       Get.offAll(() => LoginScreen());
     }
   }

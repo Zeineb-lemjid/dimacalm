@@ -13,6 +13,33 @@ class AuthController extends GetxController {
     super.onInit();
     userBox = Hive.box('userBox');
     user.value = auth.currentUser;
+
+    // Listen for auth state changes
+    auth.authStateChanges().listen((User? user) {
+      if (user != null) {
+        this.user.value = user;
+        Get.offAllNamed('/home');  // Navigate to HomePage after login
+      } else {
+        Get.offAllNamed('/login');  // Navigate to login if no user is logged in
+      }
+    });
+  }
+
+  Future<void> signInWithEmail(String email, String password) async {
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
+      user.value = userCredential.user;
+
+      // Save user data in Hive
+      userBox.put('name', user.value?.email ?? "User");
+
+      // Navigate to HomePage after successful login
+      if (user.value != null) {
+        Get.offAllNamed('/home');  // Navigate to HomePage
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Login Failed");
+    }
   }
 
   Future<void> signInWithGoogle() async {
@@ -32,19 +59,13 @@ class AuthController extends GetxController {
       userBox.put('name', user.value?.displayName ?? "User");
       userBox.put('email', user.value?.email ?? "");
       userBox.put('profileImage', user.value?.photoURL ?? "");
+
+      // Navigate to HomePage after successful login
+      if (user.value != null) {
+        Get.offAllNamed('/home');  // Navigate to HomePage
+      }
     } catch (e) {
       Get.snackbar("Error", "Google Sign-In Failed");
-    }
-  }
-
-  Future<void> signInWithEmail(String email, String password) async {
-    try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
-      user.value = userCredential.user;
-
-      userBox.put('name', user.value?.email ?? "User");
-    } catch (e) {
-      Get.snackbar("Error", "Login Failed");
     }
   }
 
