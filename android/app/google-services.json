@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1021222710527-rr9c2qg6iq0sv5oddefedkh4rt7kqe0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dimacalm",
+            "certificate_hash": "f8af9123bb49e5ffbe2fb6548b98f595cbea5973"
+          }
+        },
+        {
           "client_id": "1021222710527-5bipbhsac9hg4unfsp9910mqi23arq6e.apps.googleusercontent.com",
           "client_type": 3
         }
